@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+    <szbin path="C:/Program Files/7-Zip/7z.exe">
+        <compiler><!-- compiles the monthly update package -->
+            <args>a</args>
+            <args>-mx9</args>
+            <args>-mmt3</args>
+            <args>-md=2048m</args>
+            <args>-m0=lzma2:fb64</args>
+            <args>-ms=16384m</args>
+            <args>-bt</args>
+        </compiler>
+        <wrapper><!--builds the monthly update *.7z releasable -->
+            <args>a</args>
+            <args>-mx9</args>
+            <args>-bt</args>
+            <args>-tzip</args>
+        </wrapper>
+    </szbin>
+    <bin filename="bin.zip" folder="./bin"></bin>
+    <win11 default="true" major="7.1" pattern="SAMS-C2-v7.1.{patch}" git="d:/gitlab/automation/win11"></win11>
+    <win10 default="false" major="6.0" pattern="SAMS-MP-v6.0.{patch}" git="d:/gitlab/automation/win10"></win10>
+    <public><!--public helper scripts using the bits service to download and package their respective binary file(s) -->
+        <echo script="./public/echo.ps1"></echo>
+    </public>
+</xml>
