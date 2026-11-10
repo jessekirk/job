@@ -1,0 +1,29 @@
+{
+  "applications": [
+    {
+      "name": "7-zip",
+      "type": "github",
+      "uri": "https://github.com/ip7z/7zip/releases"
+    },
+    {
+      "name": "edge",
+      "type": "api",
+      "uri": "https://edgeupdates.microsoft.com/api/products?view=enterprise"
+    },
+    {
+      "name": "nppp",
+      "type": "website",
+      "uri": "https://notepad-plus-plus.org/downloads"
+    },
+    {
+      "name": "defender_nis",
+      "type": "direct",
+      "uri": "https://go.microsoft.com/fwlink/?LinkId=197094"
+    },
+    {
+      "name": "defender_mpamfe",
+      "type": "direct",
+      "uri": "https://go.microsoft.com/fwlink/?LinkID=121721&arch=x64"
+    }
+  ]
+}
