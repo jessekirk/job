@@ -16,6 +16,11 @@
       "uri": "https://notepad-plus-plus.org/downloads"
     },
     {
+      "name": "nppp_compareplus",
+      "type": "github",
+      "uri": "https://github.com/pnedev/comparePlus/releases"
+    },
+    {
       "name": "defender_nis",
       "type": "direct",
       "uri": "https://go.microsoft.com/fwlink/?LinkId=197094"
