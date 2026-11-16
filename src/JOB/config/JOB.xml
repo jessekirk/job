@@ -18,6 +18,6 @@
         </wrapper>
     </szbin>
     <bin filename="bin.zip" folder="./bin"></bin>
-    <win11 default="true" major="7.1" pattern="SAMS-C2-v7.1.{patch}" git="d:/gitlab/automation/win11"></win11>
+    <win11 default="false" major="7.1" pattern="SAMS-C2-v7.1.{patch}" git="d:/gitlab/automation/win11"></win11>
     <win10 default="false" major="6.0" pattern="SAMS-MP-v6.0.{patch}" git="d:/gitlab/automation/win10"></win10>
 </xml>

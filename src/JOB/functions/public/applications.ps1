@@ -86,8 +86,8 @@ function getdefenderdefinitions
     $leaf = $destination | Split-Path -Leaf ; if ($leaf -ne 'latest') { throw "Invalid destination path : $destination." }
     $path = $destination; $uri = $($json.applications | Where-Object { $_.name -eq 'defender_nis' } | Select-Object -ExpandProperty uri) # Network Real-time Inspection definitions | nis_full.exe
     $filename = 'nis_full.exe' ; Write-Verbose -Message "Downloading $filename..." -Verbose
-    Start-BitsTransfer -Source $uri -Destination $(Join-Path -Path $path -ChildPath $filename) -TransferType Download ; Write-Host -Object "done! downloaded $filename to $path." -ForegroundColor Cyan
+    Start-BitsTransfer -Source $uri -Destination $(Join-Path -Path $path -ChildPath $filename) -TransferType Download ; Write-Host -Object 'done!' -ForegroundColor Cyan
     $uri = $($json.applications | Where-Object { $_.name -eq 'defender_mpamfe' } | Select-Object -ExpandProperty uri) # Definitions | mpam-fe.exe
     $filename = 'mpam-fe.exe' ; Write-Verbose -Message "Downloading $filename..." -Verbose
-    Start-BitsTransfer -Source $uri -Destination $(Join-Path -Path $path -ChildPath $filename) -TransferType Download ; Write-Host -Object "done! downloaded $filename to $path." -ForegroundColor Cyan
+    Start-BitsTransfer -Source $uri -Destination $(Join-Path -Path $path -ChildPath $filename) -TransferType Download ; Write-Host -Object 'done!' -ForegroundColor Cyan
 }

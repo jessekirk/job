@@ -1,3 +1,13 @@
+function newmonthlyupdatefolder
+{
+    [cmdletbinding()]
+    param([parameter(Mandatory)][string]$path, [parameter(Mandatory)][version]$samsversion)
+
+    if ($xml.xml.win10.default -eq $true -and $samsversion -match $xml.xml.win10.major) { New-Item -Path $path -Name "$($xml.xml.win10.pattern.Remove(9))$($samsversion.ToString())" -ItemType Directory -Verbose | Out-Null }
+    elseif ($xml.xml.win11.default -eq $true -and $samsversion -match $xml.xml.win11.major) { New-Item -Path $path -Name "$($xml.xml.win11.pattern.Remove(9))$($samsversion.ToString())" -ItemType Directory -Verbose | Out-Null }
+    else { throw "Invalid configuration at : $xmlfile." }
+}
+
 function newpatchtuesdayfolder
 {
     [cmdletbinding()]
@@ -15,19 +25,20 @@ function newpatchtuesdayfolder
         }
     }
 
-    if ($xml.xml.win10.value -eq $true -and $path -match $xml.xml.win10.majorVersion)
+    if ($xml.xml.win10.default -eq $true -and $path -match $xml.xml.win10.major)
     {
         New-Item -Path "$path\Security Updates for Office 2016 x86_$($yyyyMMdd)" -ItemType Directory -Force -Verbose | Out-Null
-        (Get-ChildItem -Path "$gitPath\monthly updates\_windows_updates" | Where-Object { $_.Name -match 'windows updates.ps1' }).FullName | Copy-Item -Destination "$($(Resolve-Path -Path "$path\Security Updates for Office 2016 x86*\").Path)" -Container -Force -Verbose
+
+        (Get-ChildItem -Path "$git\monthly updates\_windows_updates" | Where-Object { $_.Name -match 'windows updates.ps1' }).FullName | Copy-Item -Destination "$($(Resolve-Path -Path "$path\Security Updates for Office 2016 x86*\").Path)" -Container -Force -Verbose
     }
-    elseif ($xml.xml.win11.value -eq $true -and $path -match $xml.xml.win11.majorVersion)
+    elseif ($xml.xml.win11.default -eq $true -and $path -match $xml.xml.win11.major)
     {
         New-Item -Path "$path\Security Updates for Windows 11 $($xml.xml.win11.windowsVersion)_$($yyyyMMdd)\Cumulative" -ItemType Directory -Force -Verbose | Out-Null
         New-Item -Path "$path\Security Updates for Office 2024 LTSC x64_$($yyyyMMdd)" -ItemType Directory -Force -Verbose | Out-Null
         New-Item -Path "$path\Security Definitions for Windows Defender AV_$($yyyyMMdd)\Latest" -ItemType Directory -Force -Verbose | Out-Null
-        (Get-ChildItem -Path "$gitPath\monthly updates\_windows_updates" | Where-Object { $_.Name -match 'windows updates.ps1' }).FullName | Copy-Item -Destination "$($(Resolve-Path -Path "$path\Security Updates for Windows 11*\").Path)" -Container -Force -Verbose
-        (Get-ChildItem -Path "$gitPath\monthly updates\_office_updates" | Where-Object { $_.Name -match 'office updates.ps1|office2024.xml' }).FullName | Copy-Item -Destination "$($(Resolve-Path -Path "$path\Security Updates for Office 2024 LTSC x64*\").Path)" -Container -Force -Verbose
-        (Get-ChildItem -Path "$gitPath\monthly updates\_windefend" | Where-Object { $_.Name -match 'windows defender definitions.ps1' }).FullName | Copy-Item -Destination "$($(Resolve-Path -Path "$path\Security Definitions for Windows Defender AV*\").Path)" -Container -Force -Verbose
+        (Get-ChildItem -Path "$git\monthly updates\_windows_updates" | Where-Object { $_.Name -match 'windows updates.ps1' }).FullName | Copy-Item -Destination "$($(Resolve-Path -Path "$path\Security Updates for Windows 11*\").Path)" -Container -Force -Verbose
+        (Get-ChildItem -Path "$git\monthly updates\_office_updates" | Where-Object { $_.Name -match 'office updates.ps1|office2024.xml' }).FullName | Copy-Item -Destination "$($(Resolve-Path -Path "$path\Security Updates for Office 2024 LTSC x64*\").Path)" -Container -Force -Verbose
+        (Get-ChildItem -Path "$git\monthly updates\_windefend" | Where-Object { $_.Name -match 'windows defender definitions.ps1' }).FullName | Copy-Item -Destination "$($(Resolve-Path -Path "$path\Security Definitions for Windows Defender AV*\").Path)" -Container -Force -Verbose
     }
-    else { throw 'Invalid JOB.xml configuration.' }
+    else { throw "Invalid configuration at : $xmlfile." }
 }
