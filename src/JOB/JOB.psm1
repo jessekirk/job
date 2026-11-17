@@ -5,6 +5,8 @@ if (-not(Test-Path -Path $xmlpath))
 }
 [xml]$script:xml = Get-Content -Path $xmlfile -Raw
 $script:json = Get-Content -Path (Join-Path -Path $PSScriptRoot -ChildPath config/applications.json) | ConvertFrom-Json
+if ($xml.xml.win10.default -eq $true) { $script:repository = (Resolve-Path -Path $xml.xml.win10.repository -ErrorAction SilentlyContinue).Path }
+if ($xml.xml.win11.default -eq $true) { $script:repository = (Resolve-Path -Path $xml.xml.win11.repository -ErrorAction SilentlyContinue).Path }
 Get-ChildItem -Path (Join-Path -Path $PSScriptRoot -ChildPath functions/public/*.ps1) -File | ForEach-Object { . $_.FullName }
 Get-ChildItem -Path (Join-Path -Path $PSScriptRoot -ChildPath functions/private/*.ps1) -File | ForEach-Object { . $_.FullName }
 Export-ModuleMember -Function * -Variable fullyqualifieddestinationpath, repository, json, xml, xmlfile
